@@ -11,7 +11,7 @@ import (
 
 type (
 	sqliteDB struct {
-		standard.DB
+		*standard.DB
 	}
 )
 
@@ -39,7 +39,7 @@ func Open(conn string) (*sqliteDB, error) {
 	if err := c.Ping(); err != nil {
 		return nil, err
 	}
-	return &sqliteDB{standard.DB{c}}, nil
+	return &sqliteDB{standard.NewDB("sqlite", c)}, nil
 }
 
 // Generate data type based on struct's field name and type.
